@@ -1,0 +1,188 @@
+﻿@using onlineBookAndVideoTutorial.Models
+
+@{
+    // Layout = null;
+}
+
+
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Videotutorial</title>
+
+    <style>
+        .dept {
+            margin-left: 15px;
+            width: 320px;
+        }
+
+        .sem {
+            margin-left: 15px;
+            margin-top: 15px;
+            width: 320px;
+        }
+
+        .but {
+            margin-bottom: 30px;
+            margin-left: 15px;
+            margin-top: 15px;
+            width: 320px;
+        }
+
+        .testing {
+            background-color: antiquewhite;
+            box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
+            color: black;
+            height: 150px;
+            margin: 15px;
+            margin-bottom: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 50px;
+            text-align: center;
+
+        }
+
+        h6 { font-size: 1.2rem; }
+
+        .testing:hover {
+            /*background-color: aquamarine;*/
+            box-shadow: rgb(255, 85, 85) 0px 0px 0px 3px, rgb(255, 156, 85) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(31, 193, 27) 0px 0px 0px 12px,rgb(85, 91, 255) 0px 0px 0px 15px;
+            color: black;
+            height: 150px;
+            margin: 15px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 50px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+           
+
+        .me-test {
+            /*height: inherit;*/
+            color: black;
+            font-size: 10px;
+            margin-top: 5px;
+            padding: 5px 5px;
+            text-align: center;
+        }
+
+        .docrow {
+            margin-bottom: 40px;
+            margin-top: 30px;
+        }
+
+    </style>
+</head>
+<body style="background-color: whitesmoke">
+<div class="container">
+    <center>
+        <h1 class="animated rubberBand" style="margin-top: 50px; margin-bottom: 40px; color: #3ea5c1; font-family: Monoton;">Video Tutorial</h1>
+    </center>
+    <center>
+        <table>
+            <tr>
+                <td>Department</td>
+                <td>
+                    <select id="DepartmentId" class="form-control dept" name="DepartmentName" required="">
+                        <option>Select Department</option>
+                        @foreach (Department sp in ViewBag.department)
+                        {
+                            <option value="@sp.Id">@sp.DepartmentName</option>
+                        }
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Semester</td>
+                <td>
+                    <select id="SemesterId" class="form-control sem" name="SemesterName" required="">
+                        <option>Select Semester</option>
+                        @foreach (Semester sp in ViewBag.semester)
+                        {
+                            <option value="@sp.Id">@sp.SemesterName</option>
+                        }
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button class="btn btn-info but" id="searchbtn" style="">Search</button>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <div class="row docrow" id="drow">
+
+
+    </div>
+
+</div>
+
+
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+
+@*<script type="text/javascript">
+        $(document).ready(function() {
+            $('#drow').empty();
+            $('#searchbtn').on('click', function () {
+                $('#drow').empty();
+                var deptid = $('#DepartmentId').val();
+                var semid = $('#SemesterId').val();
+                var json = { deptid: deptid, semid: semid };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetAllVideobyId", "Primary")',
+                    contentType: 'application/json',
+                    data: JSON.stringify(json),
+                    success: function (response) {
+                        $.each(response, function (key, value) {
+                            $('#drow').append('<div class="col-md-4" style="margin-bottom: 36px;">' +
+                                '<div class="testing">' +
+                                '<iframe allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="'+value.Link+'"></iframe>' +
+                                '<div class="me-test"> <h5>' + value.VideoName + '</h5> </div></div></div>');
+
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>*@
+
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('#drow').empty();
+
+
+        $('#searchbtn').on('click', function() {
+            $('#drow').empty();
+            var deptid = $('#DepartmentId').val();
+            var semid = $('#SemesterId').val();
+            var json = { deptid: deptid, semid: semid };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetAllVideobyId", "Primary")',
+                contentType: 'application/json',
+                data: JSON.stringify(json),
+                success: function(response) {
+                    $.each(response, function(key, value) {
+                        $('#drow').append('<div class="col-md-3">' +
+                            '<a href="' + value.Link + '" target="_blank" style="text-decoration:none;"><div class="testing">' +
+                            '<h6>' + value.VideoName + '</h6></div></a></div>');
+
+                    });
+                }
+            });
+        });
+    });
+
+</script>
+
+</body>

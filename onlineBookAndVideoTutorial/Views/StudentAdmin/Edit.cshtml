@@ -1,0 +1,163 @@
+﻿@model onlineBookAndVideoTutorial.Models.Registration
+
+@{
+   // Layout = null;
+}
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+
+    <style>
+        .b-box {
+            margin: 26px;
+            /*background-color: aliceblue;*/
+            padding: 41px;
+            border: 1px steelblue;
+            border-radius: 25px;
+            box-shadow: 0px 0px 20px #d8d4d4;
+            background-color: #faf8f3;
+        }
+
+        .bbt {
+            width: 25%;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 b-box">
+
+                @using (Html.BeginForm("Edit", "StudentAdmin", FormMethod.Post, new { name = "insertForm", id = "insertForm", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <center>
+                            <h2 style="margin-bottom: 20px; font-family: Monoton;">Edit Student Informations</h2>
+                        </center>
+                        @Html.ValidationSummary(true)
+                        <div class="form-group row">
+                            <div class="col-md-2"> </div>
+                            @Html.LabelFor(model => model.DepartmentId, new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                <select name="DepartmentId" class="form-control">
+                                    <option value="">Select Category</option>
+                                    @foreach (var v in ViewBag.Department)
+                                    {
+                                        if (v.Id == Model.DepartmentId)
+                                        {
+                                            <option value="@v.Id" selected="selected">@v.DepartmentName</option>
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            <option value="@v.Id">@v.DepartmentName</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group row">
+                            <div class="col-md-2"> </div>
+                            @Html.LabelFor(model => model.SemesterId, new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                <select name="SemesterId" class="form-control">
+                                    <option value="">Select Category</option>
+                                    @foreach (var v in ViewBag.semester)
+                                    {
+                                        if (v.Id == Model.SemesterId)
+                                        {
+                                            <option value="@v.Id" selected="selected">@v.SemesterName</option>
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            <option value="@v.Id">@v.SemesterName</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-2"> </div>
+                            @Html.LabelFor(model => model.StudentName, new {@class = "control-label col-md-2"})
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.StudentName, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.StudentName)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2"> </div>
+                            @Html.LabelFor(model => model.RegistrationNo, new {@class = "control-label col-md-2"})
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.RegistrationNo, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.RegistrationNo)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2"> </div>
+                            @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-2"})
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2"> </div>
+                            @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-2"})
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.Mobile)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2"> </div>
+                            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2"> </div>
+                            @Html.LabelFor(model => model.Image, new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                <input type="file" name="Image" />
+                                <input type="hidden" name="pastImage" value="@Model.Image" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group row">
+                            <div class="col-md-12" style="position: absolute; text-align: center;">
+                                <input type="submit" value="Edit" style="width: 18%;" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: center; margin-top: 27px;">
+                                @Html.ActionLink("Back to List", "StudentIndex", null, new { @class = "btn btn-warning bbt" })
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </div>
+</body>
+

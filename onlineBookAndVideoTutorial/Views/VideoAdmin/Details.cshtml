@@ -1,0 +1,58 @@
+﻿@model onlineBookAndVideoTutorial.Models.Video
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Video</h4>
+    	<hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.VideoName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.VideoName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DepartmentId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DepartmentId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SemesterId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SemesterId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Link)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Link)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "VideoIndex")
+    </p>
+</body>
+</html>

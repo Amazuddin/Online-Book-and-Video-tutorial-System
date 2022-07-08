@@ -1,0 +1,119 @@
+﻿@model onlineBookAndVideoTutorial.Models.Video
+
+@{
+    //Layout = null;
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    
+    <style>
+        .b-box {
+            background-color: #faf8f3;
+            border: 1px steelblue;
+            border-radius: 25px;
+            margin: 26px 139px;
+            padding: 41px;
+        }
+
+        .bbt {
+            margin-left: 21em;
+            width: 31%;
+        }
+
+        .warning {
+            border-radius: 9px;
+            box-shadow: -1px 4px 1px 1px #34404c;
+            /* color: red; */
+            font-weight: 400;
+            margin-bottom: 11px;
+            padding: 10px;
+            text-align: center;
+            width: 28em;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="b-box">
+        <center>
+            @if (ViewBag.Message != null)
+            {
+                <div class="warning" style="background-color: #46e86d;" id="warningLabel">
+                    <label>@ViewBag.Message</label>
+                </div>
+            }
+        </center>
+        @using (Html.BeginForm("Create", "VideoAdmin", FormMethod.Post, new { name = "insertForm", id = "insertForm", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <center>
+                    <h3 style="margin-bottom: 25px; font-family: Monoton;">Add New Video</h3>
+                </center>
+                @Html.ValidationSummary(true)
+                <div class="form-group row">
+                    <div class="col-md-2"> </div>
+                    @Html.LabelFor(model => model.DepartmentId, new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        <select name="DepartmentId" class="form-control" required="">
+                            <option value="">Select Department</option>
+                            @foreach (var v in ViewBag.Department)
+                            {
+                                <option value="@v.Id">@v.DepartmentName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-2"> </div>
+                    @Html.LabelFor(model => model.SemesterId, new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        <select name="SemesterId" class="form-control" required="">
+                            <option value="">Select Semester</option>
+                            @foreach (var v in ViewBag.semester)
+                            {
+                                <option value="@v.Id">@v.SemesterName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-2"> </div>
+                    @Html.LabelFor(model => model.VideoName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.VideoName, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                        @Html.ValidationMessageFor(model => model.VideoName)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2"> </div>
+                    @Html.LabelFor(model => model.Link, new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                        @Html.ValidationMessageFor(model => model.Link)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-12" style="position: absolute; text-align: center;">
+                        <input type="submit" value="Create" style="width: 23%" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center; margin-top: 27px;">
+                        @Html.ActionLink("Back to List", "VideoIndex", null, new { @class = "btn btn-warning bbt" })
+                    </div>
+                </div>
+                <div>
+                </div>
+            </div>
+        }
+
+    </div>
+</body>

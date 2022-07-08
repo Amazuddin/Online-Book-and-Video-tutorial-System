@@ -1,0 +1,206 @@
+﻿
+@{
+    //Layout = null;
+    ViewBag.Title = "Register";
+}
+<head>
+    <title></title>
+
+    <link href="~/Content/register.css" rel="stylesheet"/>
+</head>
+
+<div class="register">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="lbl-login animated swing" style="color: #e8a998d9; font-family: Monoton;">Register</p>
+            @if (ViewBag.Error != null)
+            {
+                <p class="cerror" id="error">@ViewBag.Error</p>
+            }
+
+            <form style="padding: 2em 5em 5em;" id="register" action="~/Authentication/Register" method="POST" enctype="multipart/form-data">
+                <center>
+                    <table>
+                        <tr>
+                            <td>
+                                <label class="lbl-reg" for="Name">Student Name</label>
+                            </td>
+                            <td>
+                                <input class="user-name" type="text" name="StudentName" id="Name" placeholder="Student Name" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="lbl-reg" for="DepartmentId">Department</label>
+                            </td>
+                            <td>
+                                <select name="DepartmentId" id="DepartmentId" class="form-control user-name" required="">
+                                    <option value="">Select Department</option>
+                                    @foreach (var v in ViewBag.Department)
+                                    {
+                                        <option value="@v.Id">@v.DepartmentName</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="lbl-reg" for="DepartmentId">Semester</label>
+                            </td>
+                            <td>
+                                <select name="SemesterId" class="form-control user-name" required="">
+                                    <option value="">Select Semester</option>
+                                    @foreach (var v in ViewBag.semester)
+                                    {
+                                        <option value="@v.Id">@v.SemesterName</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="lbl-reg" for="RegistrationNo">Registration No</label>
+                            </td>
+                            <td>
+                                <input class="user-name" type="text" name="RegistrationNo" id="RegistrationNo" placeholder="Registration No" required/>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <label class="lbl-reg" for="Mobile">Mobile</label>
+                            </td>
+                            <td>
+                                <input class="user-name" type="text" name="Mobile" id="Mobile" placeholder="Mobile Number" required/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="lbl-reg" for="Image">Image</label>
+                            </td>
+                            <td>
+                                <input class="user-name" style="padding: 5px;" type="file" name="Image" id="Image" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="lbl-reg" for="email">Email</label>
+                            </td>
+                            <td>
+                                <input class="user-name" type="text" name="Email" id="email" placeholder="Email Id" required/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="lbl-reg" for="password">Password</label>
+                            </td>
+                            <td>
+                                <input class="user-name" type="password" name="Password" id="password" placeholder="Password" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="lbl-reg" for="cpassword">Confirm Password</label>
+                            </td>
+                            <td>
+                                <input class="user-name" type="password" name="cpassword" id="cpassword" placeholder="Confirm Password" required/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input class="btn animate-btn regbutton" style="" type="submit" value="REGISTER"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                </center>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-3.0.0.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script>
+
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#warningLabel").hide(1000).empty();
+            }, 5000);
+
+
+            $("#register").validate({
+                rules: {
+                    StudentName: "required",
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+
+                    RegistrationNo: {
+                        required: true
+
+                    },
+                    Password: {
+                        required: true,
+                        minlength: 5
+                    },
+                    cpassword: {
+                        minlength: 5,
+                        equalTo: "#password"
+                    },
+                    Mobile: {
+                        required: true,
+                        number: true
+                    },
+
+                    Image: {
+                        required: true
+                    }
+
+
+                },
+                messages: {
+                    StudentName: "Please Enter Student Name",
+                    Email: {
+                        required: "Please Enter Student Email id",
+                        email: "Email id not correct"
+                    },
+                    Password: {
+                        required: "Please Enter Your Password",
+                        minlength: "Minimum length is 5"
+                    },
+                    cpassword: {
+                        minlength: "Minimum length is 5",
+                        equalTo: "Password not matched"
+                    },
+
+                    RegistrationNo: {
+                        required: "Please Enter RegistrationNo "
+
+                    },
+                    Mobile: {
+                        required: "Please Enter Student Phone No",
+                        number: "Number should not contain cahracter"
+                    },
+
+                    Image: {
+                        required: "Please Select Farmer Photo"
+                    }
+
+
+                }
+            });
+        });
+
+    </script>
+}

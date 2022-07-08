@@ -1,0 +1,73 @@
+﻿@using onlineBookAndVideoTutorial.Models
+
+@{
+    //Layout = null;
+    Registration stuinfo = ViewBag.Allinfo;
+}
+
+
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Profile</title>
+    <link href="~/Content/profile.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Monoton" />
+</head>
+<body>
+<div class="container">
+    <div class="row pro">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <p class="profile animated jello" style="font-family: Monoton;">Profile <a href="@Url.Action("ProfileUpdate", "Primary")"><button class="btn btn-danger"> <i class="fas fa-user-edit"> </i> Edit</button></a></p>
+            
+            <table class="table">
+                <tr>
+                    <td></td>
+                    <td>
+
+                        <img src="~/@stuinfo.Image" alt="Alternate Text" style="height: 160px; width: 150px;"/>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labd">
+                        <label for="name">Name</label>
+                    </td>
+                    <td>
+                        <label>@stuinfo.StudentName</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labd">
+                        <label for="address">Registration No</label>
+                    </td>
+                    <td>
+                        <label>@stuinfo.RegistrationNo</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labd">
+                        <label for="phone">Phone</label>
+                    </td>
+                    <td>
+                        <label>@stuinfo.Mobile</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labd">
+                        <label for="email">Email</label>
+                    </td>
+                    <td>
+                        <label>@stuinfo.Email</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3" style="margin-top: 150px; font-family: Monoton;">
+            
+        </div>
+    </div>
+
+</div>
+
+
+</body>

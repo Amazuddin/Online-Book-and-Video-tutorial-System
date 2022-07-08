@@ -1,0 +1,151 @@
+﻿@using onlineBookAndVideoTutorial.Models
+
+@{
+    //Layout = null;
+}
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OnlineBook</title>
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+   
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+   
+    <style>
+        .dept {
+            width: 320px;
+            margin-left: 15px;
+        }
+
+        .sem {
+            width: 320px;
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+
+        .but {
+            width: 320px;
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+        .bye {
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+
+        .up {
+            margin-top: 50px;
+           
+        }
+        /*.lll {
+            width: 150px;
+        }*/
+        .butto {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <center>
+            <h1 class="animated rubberBand" style="margin-top: 50px; color: slateblue; font-family: Monoton;">Book Pdf</h1>
+        </center>
+        <form action="" method="POST">
+            <center>
+                <table class="up">
+                    <tr>
+                        <td>Department</td>
+                        <td>
+                            <select id="DepartmentId" class="form-control dept" name="DepartmentName" required="">
+                                <option>Select Department</option>
+                                @foreach (Department sp in ViewBag.department)
+                                {
+                                    <option value="@sp.Id">@sp.DepartmentName</option>
+                                }
+                            </select>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Semester</td>
+                        <td>
+                            <select id="SemesterId" class="form-control sem" name="SemesterName" required="">
+                                <option>Select Semester</option>
+                                @foreach (Semester sp in ViewBag.semester)
+                                {
+                                    <option value="@sp.Id">@sp.SemesterName</option>
+                                }
+                            </select>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button  class="btn btn-info but" id="searchbtn" style="">Search</button></td>
+                    </tr>
+                  
+                </table>
+            </center>
+
+        </form>
+        <div class="row bye">
+
+            <div class="col-md-12 design">
+                <table class="table table-striped table-bordered" id="booktable">
+                    <thead style="text-align: center">
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>Book Name</th>
+                            <th>Author Name</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" style="text-align: center"></tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#booktable').DataTable();
+
+        $('#searchbtn').on('click', function () {
+            table.clear();
+            var deptid = $('#DepartmentId').val();
+            var semid = $('#SemesterId').val();
+
+            var serialNo = 1;
+            var b = "'";
+            var json = { deptid: deptid, semid: semid };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetAllBookbyId", "Primary")',
+                contentType: 'application/json',
+                data: JSON.stringify(json),
+                success: function (response) {
+
+                    $.each(response, function (key, value) {
+                        var a = '<a href="#" onclick="window.open(' + b + '../' + value.Pdf + '' + b + ', ' + b + ' _blank ' + b + ');"><button class="btn btn-primary butto"><i class="fas fa-download"></i> Download</button></a>';
+                        table.row.add([
+                           serialNo,
+                            value.BookName,
+                            value.AuthorName,
+                            a
+                        ]).draw(false);
+                        serialNo += 1;
+                    });
+
+                }
+
+            });
+            return false;
+        });
+
+    });
+    </script>
+</body>

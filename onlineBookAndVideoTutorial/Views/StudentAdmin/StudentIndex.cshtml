@@ -1,0 +1,126 @@
+﻿@model IEnumerable<onlineBookAndVideoTutorial.Models.Registration>
+
+@{
+    //Layout = null;
+}
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <style>
+        .col-sz {
+            width: 100px;
+        }
+
+        .wod {
+            width: 90%;
+            margin-bottom: 2px;
+        }
+
+        .indexdesignbox {
+            margin: 30px 30px 30px 30px;
+            padding: 30px;
+        }
+
+        .newbox {
+            margin-bottom: 45px;
+            font-family: Monoton;
+            font-size: 50px;
+            color: #b22525;
+        
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class=" indexdesignbox">
+        <center>
+            <p class="newbox animated rubberBand">
+                Student  Informations
+            </p>
+        </center>
+        <table id="datatable" class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentName)
+                    </th>
+                    <th>
+                        Department Id
+                    </th>
+                    <th>
+                        Semester Id
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegistrationNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mobile)
+                    </th>
+                  
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/@item.Image" alt="Alternate Text" style="height: 150px; width: 150px;" />
+                        @*@Html.DisplayFor(modelItem => item.Image)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SemesterId)
+                    </td>
+                  
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegistrationNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mobile)
+                    </td>
+                    <td>
+
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary wod" })
+                        @Html.ActionLink("Delete", "Delete", new {id = item.Id}, new {@class = "btn btn-danger wod"})
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+@section scripts
+{
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#datatable').DataTable();
+    });
+</script>
+
+}
